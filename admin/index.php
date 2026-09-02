@@ -42,7 +42,7 @@
             <div class="input-box">
                 <input type="password" name="password" required>
             </div>
-            <input type="submit" value="Continue" class="login-button">
+            <input type="submit" value="Login" class="login-button">
         </form>
     </div>
 </div>
