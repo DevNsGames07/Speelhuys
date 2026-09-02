@@ -1,7 +1,13 @@
     <?php
     include "./Classes/database.php";
     include "./Classes/sets.php";
-    $sets = Sets::AlleSets();
+    $sort = $_GET['sort'] ?? null;
+
+    if (!empty($sort)) {
+        $sets = Sets::AlleSetsGesoorteerd($sort);
+    } else {
+        $sets = Sets::AlleSets();
+    }
     ?>
 
     <!doctype html>
@@ -12,7 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Speelhuys</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
@@ -31,8 +36,25 @@
             </div>
         </nav>
         <div class="container mt-4">
+            <div class="row mb-4">
+                <div class="col-md-5 ms-auto">
+                    <form method="GET" action="">
+                        <div class="input-group">
+                            <label class="input-group-text bg-white fw-bold" for="sortSelect">Sorteren op:</label>
+                            <select class="form-select shadow-sm" id="sortSelect" name="sort" onchange="this.form.submit()">
+                                <option value="" selected disabled>Maak een keuze...</option>
+                                <option value="prijs_oplopend" <?= $sort == 'prijs_oplopend' ? 'selected' : ''; ?>>Prijs oplopend</option>
+                                <option value="prijs_aflopend" <?= $sort == 'prijs_aflopend' ? 'selected' : ''; ?>>Prijs aflopend</option>
+                                <option value="blokjes_oplopend" <?= $sort == 'blokjes_oplopend' ? 'selected' : ''; ?>>Aantal blokjes oplopend</option>
+                                <option value="blokjes_aflopend" <?= $sort == 'blokjes_aflopend' ? 'selected' : ''; ?>>Aantal blokjes aflopend</option>
+                                <option value="leeftijd_oplopend" <?= $sort == 'leeftijd_oplopend' ? 'selected' : ''; ?>>Leeftijd oplopend</option>
+                                <option value="leeftijd_aflopend" <?= $sort == 'leeftijd_aflopend' ? 'selected' : ''; ?>>Leeftijd aflopend</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="row">
-                <!-- loopt door bericht en toont ze als cards -->
                 <?php foreach ($sets as $set) { ?>
                     <div class="col-md-4 mb-4">
                         <a href="detail.php?id=<?= $set->id; ?>" class="text-decoration-none text-dark">
