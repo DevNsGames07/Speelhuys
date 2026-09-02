@@ -39,11 +39,11 @@
         </form>
       </div>
       <div class="product-grid"">
-         <?php foreach ($pakketten as $pakket) { ?>
+         <?php foreach ($sets as $set) { ?>
          <div class="product-card">
             <div class="product-image">
-                <?php if (!empty($pakket->afbeelding)) { ?>
-                <img src="<?= $pakket->afbeelding ?>" alt="<?= $pakket->naam ?>"
+                <?php if (!empty($set->afbeelding)) { ?>
+                <img src="<?= $set->afbeelding ?>" alt="<?= $set->naam ?>"
                 <?php } else { ?>
                 <div class="no-image">
                     Afbeelding
@@ -53,18 +53,18 @@
 
             <div class="product-info">
                 <h3>
-                    <?= $pakket->naam ?>
+                    <?= $set->naam ?>
                 </h3>
                 <p>
-                    <?= $pakket->merk ?>
+                    <?= $set->merk ?>
                 </p>
                 <p>
-                    <?= $pakket->aantal_steentjes ?> steentjes
+                    <?= $set->aantal_steentjes ?> steentjes
                 </p>
                 <strong>
-                    € <?= number_format($pakket->prijs, 2, ',', '.') ?> 
+                    € <?= number_format($set->prijs, 2, ',', '.') ?> 
                 </strong>
-                <a href="detail.php?id=<?= $pakket->id ?>" class="detail-button">Bekijk product</a>
+                <a href="detail.php?id=<?= $set->id ?>" class="detail-button">Bekijk product</a>
             </div>
          </div>
         <?php } ?>
