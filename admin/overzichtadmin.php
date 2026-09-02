@@ -38,7 +38,46 @@
             <button type="submit">Zoeken</button>
         </form>
       </div>
-    </main>
+      <div class="product-grid"">
+         <?php foreach ($pakketten as $pakket) { ?>
+         <div class="product-card">
+            <div class="product-image">
+                <?php if (!empty($pakket->afbeelding)) { ?>
+                <img src="<?= $pakket->afbeelding ?>" alt="<?= $pakket->naam ?>"
+                <?php } else { ?>
+                <div class="no-image">
+                    Afbeelding
+                </div>
+                <?php } ?>
+            </div>
+
+            <div class="product-info">
+                <h3>
+                    <?= $pakket->naam ?>
+                </h3>
+                <p>
+                    <?= $pakket->merk ?>
+                </p>
+                <p>
+                    <?= $pakket->aantal_steentjes ?> steentjes
+                </p>
+                <strong>
+                    € <?= number_format($pakket->prijs, 2, ',', '.') ?> 
+                </strong>
+                <a href="detail.php?id=<?= $pakket->id ?>" class="detail-button">Bekijk product</a>
+            </div>
+         </div>
+        <?php } ?>
+    </div>
+    <div class="pagination">
+        <a href="#">&lt;</a>
+        <a href="#"class="current">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">&gt;</a>
+    </div>
+  </main>
+</div>
     
 <footer class="site-footer">
     <h2>Speelhuys</h2>
