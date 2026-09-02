@@ -35,7 +35,7 @@
 <div class="login-container">
     <div class="login-box">
         <h2>Inloggen:</h2>
-        <form method="post" action="create.php">
+        <form method="post" action="index.php">
             <div class="input-box">
                 <input type="text" name="username" required>
             </div>
