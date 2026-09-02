@@ -1,8 +1,8 @@
 <?php
     $errorbericht = "";
     if(!empty($_POST["username"])) {
-        include "./Classes/gebruiker.php";
-        include "./Classes/database.php";
+        include "../Classes/gebruiker.php";
+        include "../Classes/database.php";
 
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -35,7 +35,7 @@
 
 <h2>Login</h2>
 
-<form method="post" action="create.php">
+<form method="post" action="index.php">
     Gebruikersnaam: <br>
     <input type="text" name="username" required><br><br>
 

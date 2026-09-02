@@ -24,7 +24,7 @@
     <nav>
         <div class="container-fluid">
             <span class="text-white fw-bold">Speelhuys</span>
-            <a href="login.php">log in</a>
+            <a href="./admin/index.php">log in</a>
         </div>
     </nav>
     <div class="container">
