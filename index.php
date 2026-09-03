@@ -59,7 +59,7 @@
                     <div class="col-md-4 mb-4">
                         <a href="detail.php?id=<?= $set->id; ?>" class="text-decoration-none text-dark">
                             <div class="card">
-                                <img src="images/sets/<?= $set->image; ?>" class="card-img-top" alt="<?= $set->naam; ?>" style="height: 180px; object-fit: cover;">
+                                <img src="images/sets/<?= $set->image; ?>" class="card-img-top" alt="<?= $set->naam; ?>" style="height: 180px; object-fit: contain;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $set->naam; ?></h5>
                                     <p class="card-text text-muted"><?= $set->stukjes; ?></p>
