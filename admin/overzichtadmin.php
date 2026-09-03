@@ -12,7 +12,7 @@
            <h2>Speelhuys</h2> 
         </div>
         <nav class="top menu">
-            <a href="overzichtadmin.php" class="active">Overzicht</a>
+            <a href="index.php" class="active">Overzicht</a>
             <a href="#">Thema</a>
             <a href="#">Merk</a>
             <a href="#">Leeftijd</a>
@@ -21,7 +21,7 @@
     <div class="page-layout">
         <aside class="sidebar">
             <h3>Menu</h3>
-            <a href="overzichtadmin.php">Overzicht</a>
+            <a href="index.php">Overzicht</a>
             <a href="#">Thema</a>
             <a href="#">Merk</a>
             <a href="#">Leeftijd</a>
@@ -39,7 +39,8 @@
         </form>
       </div>
       <div class="product-grid"">
-         <?php foreach ($sets as $set) { ?>
+         <?php $sets = $sets ?? [];
+         foreach ($sets as $set) { ?>
          <div class="product-card">
             <div class="product-image">
                 <?php if (!empty($set->afbeelding)) { ?>
