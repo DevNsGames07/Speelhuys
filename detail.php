@@ -38,8 +38,8 @@ if ($set == null) {
             </div>
             <div class="col-4 position-absolute top-50 end-0 translate-middle">
                 <p class="fs-2"><b><?= $set->naam ?></br></b></p>
-                <p><b class="fs-5">€<?= $set->price ?></b><br>available now!</p>
-                <p></p>
+                <p><b class="fs-5">€<?= $set->price ?></b><br>available now! - <?=$set->vooraad ?> in de vooraad</p>
+                <p><b class="fs-6"></b></p>
                 <p><?= $set->beschrijving ?> </p>
             </div>
         </div>
