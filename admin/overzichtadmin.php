@@ -43,11 +43,11 @@
          foreach ($sets as $set) { ?>
          <div class="product-card">
             <div class="product-image">
-                <?php if (!empty($set->afbeelding)) { ?>
-                <img src="<?= $set->afbeelding ?>" alt="<?= $set->naam ?>"
+                <?php if (!empty($set->image)) { ?>
+                <img src="images/sets/<?= $set->image ?>" alt="<?= $set->naam ?>">
                 <?php } else { ?>
                 <div class="no-image">
-                    Afbeelding
+                    Image not available
                 </div>
                 <?php } ?>
             </div>
