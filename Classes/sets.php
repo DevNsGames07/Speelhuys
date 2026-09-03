@@ -13,10 +13,10 @@ class Sets
     public $vooraad;
 
 
-    public static function AlleSets()
+    public static function AlleSets($startAt, $perPage)
     {
         $conn = Database::start(); // Start database.
-        $sql = "SELECT * FROM sets"; // Opdracht
+        $sql = "SELECT * FROM sets LIMIT $startAt, $perPage";
         $result = $conn->query($sql); // Voert opdracht uit.
         $sets = []; // Maakt een lege lijst.
 
@@ -60,8 +60,8 @@ class Sets
             $sql .= " ORDER BY set_age DESC ";
         }
 
-        
-        
+        $sql .= " LIMIT " . $startAt . "," . $perPage . "";
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -109,4 +109,14 @@ class Sets
         $conn->close();
         return $set;
     }
+
+    public static function AantalSets()
+{
+    $conn = Database::start();
+    $result = $conn->query("SELECT COUNT(*) FROM sets");
+    
+    $count = $result->fetch_row()[0]; 
+    
+    return (int)$count;
+}
 }
