@@ -37,10 +37,12 @@ if ($set == null) {
                 <img src="images/sets/<?= $set->image; ?>" alt="<?= $set->naam; ?>" style="height: 300px; object-fit: cover;">
             </div>
             <div class="col-4 position-absolute top-50 end-0 translate-middle">
-                <p class="fs-2"><b><?= $set->naam ?></br></b></p>
+                <p class="fs-2 text-start"><b><?= $set->naam ?><br></b></p>
                 <p><b class="fs-5">€<?= $set->price ?></b><br>available now! - <?=$set->vooraad ?> in de vooraad</p>
-                <p><b class="fs-6"></b></p>
-                <p><?= $set->beschrijving ?> </p>
+                <p class="text-start"><b class="fs-6">leeftijd:</b> <br><?=$set->age?></p>
+                <p class="text-start"><b class="fs-6">stukjes:</b> <br><?=$set->stukjes?></p>
+                <p class="text-start"><?= $set->beschrijving ?> </p>
+                <button type="button" class="btn btn-secondary" disabled>voegen aan winkelwagen</button>
             </div>
         </div>
     </div>
