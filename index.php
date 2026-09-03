@@ -3,8 +3,12 @@
     include "./Classes/sets.php";
     $sort = $_GET['sort'] ?? null;
 
+    $perPage = 10;
+    $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+    $startAt = $perPage * ($page - 1);
+
     if (!empty($sort)) {
-        $sets = Sets::AlleSetsGesoorteerd($sort);
+        $sets = Sets::AlleSetsGesoorteerd($sort, $startAt, $perPage);
     } else {
         $sets = Sets::AlleSets();
     }
@@ -18,6 +22,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Speelhuys</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <style>
+            .pagination {
+                display: flex;
+                justify-content: center;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
+
+            .pagination a.active {
+                background-color: dodgerblue;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+            }
+        </style>
+
     </head>
 
     <body>
@@ -69,6 +97,15 @@
                     </div>
                 <?php } ?>
             </div>
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">&raquo;</a>
+            </div>
         </div>
     </body>
-    </div>
