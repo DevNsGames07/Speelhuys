@@ -1,6 +1,6 @@
 <?php
-include ("../Classes/database.php");
-include ("../Classes/merk.php");
+include "../Classes/merk.php";
+include "../Classes/database.php";
 
 $merken = Merk::VindtAlleMerken();
 
