@@ -30,12 +30,16 @@ if ($set == null) {
                 </div>
             </div>
         </nav>
-        <div class="container text-center-left">
-            <div class="col-6">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-8">
+                <img src="images/sets/<?= $set->image; ?>" alt="<?= $set->naam; ?>" style="height: 300px; object-fit: cover;">
+                </div>
+                <div class="col-4">
+                <p style="fs-1"><b><?= $set->naam ?></b></br></p>
+                <p><?= $set->beschrijving ?> </p>
+            </div>
         </div>
-         
-
-
+    </div>
 </body>
 
-<p> <?= $set->naam ?></p>
