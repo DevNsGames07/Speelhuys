@@ -55,7 +55,7 @@ if (!empty($sort)) {
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #1bb19b;" data-bs-theme="light">
         <div class="container-fluid">
-            <span class="navbar-brand" href="">Speelhuys </br> codeblokken</span>
+            <span class="navbar-brand">Speelhuys </br> codeblokken</span>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <a class="nav-link" href="../speelhuys/admin/index.php">Log in</a>
