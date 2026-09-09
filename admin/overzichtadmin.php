@@ -31,22 +31,12 @@ $totalPages = ceil($totalSets / $perPage);
 </head>
 
 <body>
-
 <header class="site-header">
 
     <div class="site-logo">
         <h2>Speelhuys</h2>
     </div>
-
-    <nav class="top-menu">
-        <a href="overzichtadmin.php" class="active">Overzicht</a>
-        <a href="thema.php">Thema</a>
-        <a href="merk.php">Merk</a>
-        <a href="leeftijd.php">Leeftijd</a>
-    </nav>
-
-</header>
-
+</header>    
 
 <div class="page-layout">
 
