@@ -1,11 +1,31 @@
+<?php
+
+include "../Classes/database.php";
+include "../Classes/sets.php";
+
+// Pagina
+$page = $_GET['page'] ?? 1;
+
+$perPage = 9;
+$startAt = ($page - 1) * $perPage;
+
+// Sets ophalen
+$sets = Sets::AlleSets($startAt, $perPage);
+
+// Aantal pagina's
+$totalSets = Sets::AantalSets();
+$totalPages = ceil($totalSets / $perPage);
+
+?>
+
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Speelhuys - Overzicht</title>
+    <title>Overzicht</title>
 
     <link rel="stylesheet" href="../overzicht.css">
 </head>
@@ -16,14 +36,13 @@
 
     <div class="site-logo">
         <h2>Speelhuys</h2>
-        <p>Codeblokken</p>
     </div>
 
     <nav class="top-menu">
         <a href="overzichtadmin.php" class="active">Overzicht</a>
-        <a href="#">Thema</a>
-        <a href="#">Merk</a>
-        <a href="#">Leeftijd</a>
+        <a href="thema.php">Thema</a>
+        <a href="merk.php">Merk</a>
+        <a href="leeftijd.php">Leeftijd</a>
     </nav>
 
 </header>
@@ -36,9 +55,9 @@
         <h3>Menu</h3>
 
         <a href="overzichtadmin.php">Overzicht</a>
-        <a href="#">Thema</a>
-        <a href="#">Merk</a>
-        <a href="#">Leeftijd</a>
+        <a href="thema.php">Thema</a>
+        <a href="merk.php">Merk</a>
+        <a href="leeftijd.php">Leeftijd</a>
         <a href="#">Prijs</a>
         <a href="#">Steentjes</a>
 
@@ -47,38 +66,19 @@
 
     <main class="content">
 
-        <div class="content-header">
+        <div class="container-header">
 
             <div>
-                <h2>Codeblokken pakketten</h2>
+                <h1>Overzicht</h1>
                 <p>Bekijk alle beschikbare pakketten.</p>
             </div>
-
-
-            <form method="get" class="search-form">
-
-                <input
-                    type="text"
-                    name="zoek"
-                    placeholder="Zoek een pakket..."
-                >
-
-                <button type="submit">
-                    Zoeken
-                </button>
-
-            </form>
 
         </div>
 
 
         <div class="product-grid">
 
-            <?php
-            $sets = $sets ?? [];
-
-            foreach ($sets as $set) {
-            ?>
+            <?php foreach ($sets as $set) { ?>
 
                 <div class="product-card">
 
@@ -87,7 +87,7 @@
                         <?php if (!empty($set->image)) { ?>
 
                             <img
-                                src="../images/sets/<?= $set->image ?>"
+                                src="images/sets/<?= $set->image ?>"
                                 alt="<?= $set->naam ?>"
                             >
 
@@ -109,19 +109,22 @@
                         </h3>
 
                         <p>
-                            <strong>Merk:</strong>
-                            <?= $set->merk ?>
+                            Merk ID: <?= $set->merkid ?>
                         </p>
 
                         <p>
-                            <strong>Steentjes:</strong>
-                            <?= $set->aantal_steentjes ?>
+                            <?= $set->stukjes ?> steentjes
                         </p>
 
-                        <p class="price">
-                            € <?= number_format($set->prijs, 2, ',', '.') ?>
+                        <p>
+                            Leeftijd: <?= $set->age ?> jaar
                         </p>
 
+                        <strong>
+                            € <?= number_format($set->price, 2, ',', '.') ?>
+                        </strong>
+
+                        <br><br>
 
                         <a
                             href="detail.php?id=<?= $set->id ?>"
@@ -134,24 +137,43 @@
 
                 </div>
 
-            <?php
-            }
-            ?>
+            <?php } ?>
 
         </div>
 
 
+        <!-- Pagina's -->
+
         <div class="pagination">
 
-            <a href="#">&lt;</a>
+            <?php if ($page > 1) { ?>
 
-            <a href="#" class="current">1</a>
+                <a href="?page=<?= $page - 1 ?>">
+                    &lt;
+                </a>
 
-            <a href="#">2</a>
+            <?php } ?>
 
-            <a href="#">3</a>
 
-            <a href="#">&gt;</a>
+            <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+
+                <a
+                    href="?page=<?= $i ?>"
+                    class="<?= $i == $page ? 'current' : '' ?>"
+                >
+                    <?= $i ?>
+                </a>
+
+            <?php } ?>
+
+
+            <?php if ($page < $totalPages) { ?>
+
+                <a href="?page=<?= $page + 1 ?>">
+                    &gt;
+                </a>
+
+            <?php } ?>
 
         </div>
 
@@ -163,10 +185,6 @@
 <footer class="site-footer">
 
     <h2>Speelhuys</h2>
-
-    <p>
-        &copy; 2026 Speelhuys Codeblokken
-    </p>
 
 </footer>
 

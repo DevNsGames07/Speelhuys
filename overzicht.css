@@ -1,383 +1,238 @@
+/* Algemene instellingen */
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #17202b;
-    color: white;
-    min-height: 100vh;
+    background-color: #f5f5f5;
+    color: #333;
 }
+
+
+/* Header */
 
 .site-header {
-    min-height: 90px;
-
-    background: linear-gradient(
-        90deg,
-        #23c6c8,
-        #4bd5d5
-    );
-
+    height: 70px;
+    background-color: white;
     display: flex;
     align-items: center;
-
+    justify-content: space-between;
     padding: 0 40px;
-
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #ddd;
 }
-
-
-.site-logo {
-    width: 220px;
-}
-
 
 .site-logo h2 {
-    font-size: 25px;
-}
-
-
-.site-logo p {
-    font-size: 13px;
-    margin-top: 3px;
+    margin: 0;
+    font-size: 24px;
 }
 
 .top-menu {
     display: flex;
-    gap: 8px;
+    gap: 25px;
 }
-
 
 .top-menu a {
-    color: white;
+    color: #333;
     text-decoration: none;
-
-    background-color: #303746;
-
-    padding: 12px 20px;
-
-    font-size: 15px;
-
-    transition: 0.2s;
+    padding: 10px;
 }
-
 
 .top-menu a:hover,
 .top-menu a.active {
-    background-color: #454b5b;
+    color: #000;
+    font-weight: bold;
 }
+
+
+/* Pagina */
 
 .page-layout {
     display: flex;
-
-    max-width: 1250px;
-
-    margin: 0 auto;
-
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 130px);
 }
+
+
+/* Zijbalk */
 
 .sidebar {
-    width: 210px;
-
-    padding: 35px 20px;
+    width: 220px;
+    background-color: white;
+    padding: 25px 20px;
+    border-right: 1px solid #ddd;
 }
 
-
 .sidebar h3 {
-    font-size: 18px;
-
+    margin-top: 0;
     margin-bottom: 20px;
 }
 
-
 .sidebar a {
     display: block;
-
-    color: white;
-
+    color: #333;
     text-decoration: none;
-
-    padding: 10px 5px;
-
-    font-size: 15px;
-
-    border-bottom: 1px solid transparent;
-
-    transition: 0.2s;
+    padding: 12px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
 }
-
 
 .sidebar a:hover {
-    color: #36d4d4;
-
-    border-bottom-color: #36d4d4;
+    background-color: #f0f0f0;
 }
+
+
+/* Hoofdgedeelte */
 
 .content {
     flex: 1;
-
-    padding: 35px;
+    padding: 30px;
 }
 
 
-.content-header {
-    display: flex;
+/* Titel */
 
+.container-header {
+    display: flex;
     justify-content: space-between;
-
     align-items: center;
+    margin-bottom: 25px;
+}
 
-    gap: 25px;
+.container-header h1 {
+    margin: 0 0 8px 0;
+}
 
-    margin-bottom: 30px;
+.container-header p {
+    margin: 0;
+    color: #666;
 }
 
 
-.content-header h2 {
-    font-size: 25px;
-
-    margin-bottom: 5px;
-}
-
-
-.content-header p {
-    color: #aeb7c2;
-
-    font-size: 14px;
-}
-
-.search-form {
-    display: flex;
-}
-
-
-.search-form input {
-    width: 220px;
-
-    height: 38px;
-
-    background-color: #222d39;
-
-    border: 1px solid #687482;
-
-    color: white;
-
-    padding: 0 12px;
-
-    outline: none;
-}
-
-
-.search-form input:focus {
-    border-color: #36d4d4;
-}
-
-
-.search-form button {
-    height: 38px;
-
-    border: none;
-
-    background-color: #36caca;
-
-    color: #17202b;
-
-    padding: 0 18px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-.search-form button:hover {
-    background-color: #58dddd;
-}
+/* Producten */
 
 .product-grid {
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
+    gap: 20px;
 }
-
 
 .product-card {
-    background-color: #222d39;
-
-    border: 1px solid #3c4855;
-
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     overflow: hidden;
-
-    transition: 0.2s;
 }
-
 
 .product-card:hover {
-    transform: translateY(-4px);
-
-    border-color: #36d4d4;
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Product afbeelding */
 
 .product-image {
-    height: 180px;
-
-    background-color: #303d4c;
-
+    height: 200px;
     display: flex;
-
-    align-items: center;
-
     justify-content: center;
-
-    overflow: hidden;
+    align-items: center;
+    background-color: #fafafa;
 }
-
 
 .product-image img {
     width: 100%;
-
     height: 100%;
-
-    object-fit: cover;
+    object-fit: contain;
 }
-
 
 .no-image {
-    color: #aeb7c2;
-
-    font-size: 13px;
+    color: #888;
 }
+
+
+/* Product informatie */
 
 .product-info {
-    padding: 20px;
+    padding: 18px;
 }
-
 
 .product-info h3 {
+    margin: 0 0 10px 0;
     font-size: 18px;
-
-    margin-bottom: 12px;
 }
-
 
 .product-info p {
-    color: #aeb7c2;
+    margin: 7px 0;
+    color: #666;
+}
 
-    font-size: 13px;
-
-    margin-bottom: 7px;
+.product-info strong {
+    display: block;
+    margin-top: 15px;
+    font-size: 18px;
+    color: #222;
 }
 
 
-.product-info p strong {
-    color: white;
-}
-
-
-.product-info .price {
-    color: #36d4d4;
-
-    font-size: 20px;
-
-    font-weight: bold;
-
-    margin: 15px 0;
-}
+/* Knop */
 
 .detail-button {
     display: inline-block;
-
-    background-color: #36caca;
-
-    color: #17202b;
-
-    text-decoration: none;
-
+    margin-top: 15px;
     padding: 10px 15px;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-    transition: 0.2s;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
 }
-
 
 .detail-button:hover {
-    background-color: #58dddd;
+    background-color: #555;
 }
+
+
+/* Pagina navigatie */
 
 .pagination {
     display: flex;
-
     justify-content: center;
-
-    gap: 6px;
-
-    margin-top: 35px;
-
-    padding-bottom: 20px;
+    gap: 8px;
+    margin-top: 30px;
 }
-
 
 .pagination a {
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    width: 34px;
-
-    height: 34px;
-
-    color: white;
-
+    display: inline-block;
+    padding: 8px 12px;
+    color: #333;
+    background-color: white;
+    border: 1px solid #ddd;
     text-decoration: none;
-
-    background-color: #303b49;
+    border-radius: 4px;
 }
 
+.pagination a:hover {
+    background-color: #eee;
+}
 
-.pagination a:hover,
 .pagination a.current {
-    background-color: #36caca;
-
-    color: #17202b;
+    background-color: #333;
+    color: white;
 }
+
+
+/* Footer */
 
 .site-footer {
-    min-height: 70px;
-
-    background: linear-gradient(
-        90deg,
-        #23c6c8,
-        #4bd5d5
-    );
-
-    padding: 15px 40px;
-
-    color: white;
+    height: 60px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
 }
-
 
 .site-footer h2 {
-    font-size: 20px;
-}
-
-
-.site-footer p {
-    font-size: 13px;
-
-    margin-top: 5px;
+    margin: 0;
+    font-size: 18px;
 }
