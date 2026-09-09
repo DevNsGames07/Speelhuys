@@ -77,7 +77,7 @@ $totalPages = ceil($totalSets / $perPage);
                         <?php if (!empty($set->image)) { ?>
 
                             <img
-                                src="images/sets/<?= $set->image ?>"
+                                src="../images/sets/<?= $set->image ?>"
                                 alt="<?= $set->naam ?>"
                             >
 
