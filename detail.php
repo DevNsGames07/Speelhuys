@@ -31,8 +31,9 @@ if ($set == null) {
             </div>
         </div>
     </nav>
+    
     <div class="container text-center">
-        <div class="row ">
+        <div class="row">
             <div class="col-8 position-absolute top-50 start-0 translate-middle-y">
                 <img src="images/sets/<?= $set->image; ?>" alt="<?= $set->naam; ?>" style="height: 300px; object-fit: cover;">
             </div>

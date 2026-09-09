@@ -96,3 +96,8 @@
 
     color: #222;
 }
+.set-image {
+    height: 180px;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}

@@ -1,6 +1,8 @@
 <?php
 include "./Classes/database.php";
 include "./Classes/sets.php";
+include "./classes/theme.php";
+include "./classes/merk.php";
 
 $sort = $_GET['sort'] ?? null;
 $page = (int)($_GET['page'] ?? 1);
@@ -16,6 +18,8 @@ if (!empty($sort)) {
 } else {
     $sets = Sets::AlleSets($startAt, $perPage);
 }
+
+
 ?>
 
 <!doctype html>
@@ -25,6 +29,7 @@ if (!empty($sort)) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Speelhuys</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
         .pagination {
@@ -84,6 +89,26 @@ if (!empty($sort)) {
                         </select>
                     </div>
                 </form>
+                <form method="GET" action="" class="d-flex gap-2">
+                <select class="form-select shadow-sm" name="thema" onchange="this.form.submit()">
+                    <option value="">Alle thema's</option>
+                    <?php foreach ($themas as $t) { ?>
+                        <option value="<?= $t->id; ?>" <?= ($themeId == $t->id) ? 'selected' : ''; ?>>
+                            <?= htmlspecialchars($t->naam); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+                <select class="form-select shadow-sm" name="merk" onchange="this.form.submit()">
+                    <option value="">Alle merken</option>
+                    <?php foreach ($merken as $m) { ?>
+                        <option value="<?= $m->id; ?>" <?= ($brandId == $m->id) ? 'selected' : ''; ?>>
+                            <?= htmlspecialchars($m->naam); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+
+                <input type="hidden" name="sort" value="<?= htmlspecialchars($sort ?? ''); ?>">
+            </form>
             </div>
         </div>
         <div class="row">
@@ -91,7 +116,7 @@ if (!empty($sort)) {
                 <div class="col-md-4 mb-4">
                     <a href="detail.php?id=<?= $set->id; ?>" class="text-decoration-none text-dark">
                         <div class="card">
-                            <img src="images/sets/<?= $set->image; ?>" class="card-img-top" alt="<?= $set->naam; ?>" style="height: 180px; object-fit: contain;">
+                            <img src="images/sets/<?= $set->image; ?>" class="card-img-top set-image" alt="<?= $set->naam; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $set->naam; ?></h5>
                                 <p class="card-text text-muted"><?= $set->stukjes; ?></p>
@@ -109,3 +134,5 @@ if (!empty($sort)) {
         </div>
     </div>
 </body>
+
+</html>
