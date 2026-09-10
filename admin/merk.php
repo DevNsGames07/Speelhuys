@@ -1,14 +1,15 @@
 <?php
 
-include "../Classes/merk.php";
 include "../Classes/database.php";
+include "../Classes/merk.php";
 
+// Alle merken ophalen
 $merken = Merk::VindtAlleMerken();
 
 ?>
 
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 
 <head>
 
@@ -16,7 +17,7 @@ $merken = Merk::VindtAlleMerken();
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Speelhuys - Merken</title>
+    <title>Merken - Speelhuys</title>
 
     <link rel="stylesheet" href="../overzicht.css">
 
@@ -28,33 +29,8 @@ $merken = Merk::VindtAlleMerken();
 <header class="site-header">
 
     <div class="site-logo">
-
         <h2>Speelhuys</h2>
-
-        <p>Codeblokken</p>
-
     </div>
-
-
-    <nav class="top-menu">
-
-        <a href="overzichtadmin.php">
-            Overzicht
-        </a>
-
-        <a href="#">
-            Thema
-        </a>
-
-        <a href="merk.php" class="active">
-            Merk
-        </a>
-
-        <a href="#">
-            Leeftijd
-        </a>
-
-    </nav>
 
 </header>
 
@@ -71,7 +47,7 @@ $merken = Merk::VindtAlleMerken();
             Overzicht
         </a>
 
-        <a href="#">
+        <a href="thema.php">
             Thema
         </a>
 
@@ -79,7 +55,7 @@ $merken = Merk::VindtAlleMerken();
             Merk
         </a>
 
-        <a href="#">
+        <a href="leeftijd.php">
             Leeftijd
         </a>
 
@@ -98,32 +74,17 @@ $merken = Merk::VindtAlleMerken();
     <main class="content">
 
 
-        <div class="content-header">
+        <div class="container-header">
 
             <div>
 
-                <h2>Merken</h2>
+                <h1>Merken</h1>
 
                 <p>
                     Bekijk alle beschikbare merken.
                 </p>
 
             </div>
-
-
-            <form method="get" class="search-form">
-
-                <input
-                    type="text"
-                    name="zoek"
-                    placeholder="Zoek een merk..."
-                >
-
-                <button type="submit">
-                    Zoeken
-                </button>
-
-            </form>
 
         </div>
 
@@ -133,6 +94,7 @@ $merken = Merk::VindtAlleMerken();
 
 
             <?php foreach ($merken as $merk) { ?>
+
 
                 <a
                     href="overzichtadmin.php?merk=<?= $merk->id ?>"
@@ -166,14 +128,11 @@ $merken = Merk::VindtAlleMerken();
                             <?= $merk->naam ?>
                         </h3>
 
-                        <p>
-                            Bekijk pakketten van dit merk
-                        </p>
-
                     </div>
 
 
                 </a>
+
 
             <?php } ?>
 
@@ -183,6 +142,7 @@ $merken = Merk::VindtAlleMerken();
 
     </main>
 
+
 </div>
 
 
@@ -190,10 +150,6 @@ $merken = Merk::VindtAlleMerken();
 <footer class="site-footer">
 
     <h2>Speelhuys</h2>
-
-    <p>
-        &copy; 2026 Speelhuys Codeblokken
-    </p>
 
 </footer>
 
