@@ -109,3 +109,9 @@
     height: 300px;
     object-fit: cover;
 }
+.det-margin {
+    margin-top: 100px !important;
+}
+.div-height {
+    min-height: 400px;
+}

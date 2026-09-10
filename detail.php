@@ -31,19 +31,21 @@ if ($set == null) {
             </div>
         </div>
     </nav>
-    
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-8 position-absolute top-50 start-0 translate-middle-y">
-                <img src="images/sets/<?= $set->image; ?>" alt="<?= $set->naam; ?>" class="image-detail">
-            </div>
-            <div class="col-4 position-absolute top-50 end-0 translate-middle">
-                <p class="fs-2 text-start"><b><?= $set->naam ?><br></b></p>
-                <p><b class="fs-5">€<?= $set->price ?></b><br>available now! - <?=$set->vooraad ?> in de vooraad</p>
-                <p class="text-start"><b class="fs-6">leeftijd:</b> <br><?=$set->age?></p>
-                <p class="text-start"><b class="fs-6">stukjes:</b> <br><?=$set->stukjes?></p>
-                <p class="text-start"><?= $set->beschrijving ?> </p>
-                <button type="button" class="btn btn-secondary" disabled>voegen aan winkelwagen</button>
+
+    <div class="container text-center det-margin">
+        <div class="card" style="width: 80rem;">
+            <div class="row align-items-center justify-content-center div-height">
+                <div class="col-8">
+                    <img src="images/sets/<?= $set->image; ?>" alt="<?= $set->naam; ?>" class="image-detail">
+                </div>
+                <div class="col-4">
+                    <p class="fs-2 text-start"><b><?= $set->naam ?><br></b></p>
+                    <p><b class="fs-5">€<?= $set->price ?></b><br>available now! - <?= $set->vooraad ?> in de vooraad</p>
+                    <p class="text-start"><b class="fs-6">leeftijd:</b> <br><?= $set->age ?></p>
+                    <p class="text-start"><b class="fs-6">stukjes:</b> <br><?= $set->stukjes ?></p>
+                    <p class="text-start"><?= $set->beschrijving ?> </p>
+                    <button type="button" class="btn btn-secondary" disabled>voegen aan winkelwagen</button>
+                </div>
             </div>
         </div>
     </div>

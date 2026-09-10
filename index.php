@@ -122,7 +122,7 @@ if (!empty($sort)) {
                             <img src="images/sets/<?= $set->image; ?>" class="card-img-top set-image" alt="<?= $set->naam; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $set->naam; ?></h5>
-                                <p class="card-text text-muted"><?= $set->price; ?></p>
+                                <p class="card-text text-muted">€<?= $set->price; ?></p>
                             </div>
                         </div>
                     </a>
