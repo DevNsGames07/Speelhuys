@@ -62,7 +62,7 @@
                                 <img src="images/sets/<?= $set->image; ?>" class="card-img-top" alt="<?= $set->naam; ?>" style="height: 180px; object-fit: cover;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $set->naam; ?></h5>
-                                    <p class="card-text text-muted"><?= $set->price; ?></p>
+                                    <p class="card-text text-muted"><?= $set->stukjes; ?></p>
                                 </div>
                             </div>
                         </a>
