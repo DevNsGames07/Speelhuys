@@ -34,7 +34,7 @@ if (!empty($_POST["username"])) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #074f44;" data-bs-theme="light">
+    <nav class="navbar navbar-expand-lg nav-bar" data-bs-theme="light">
         <div class="container-fluid">
             <span class="navbar-brand">Speelhuys </br> codeblokken</span>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,6 +63,7 @@ if (!empty($_POST["username"])) {
                 <input type="submit" value="Login" class="login-button">
             </form>
         </div>
+        <a href="javascript:history.back()">Back to previous page</a>
     </div>
 </body>
 

@@ -99,5 +99,13 @@
 .set-image {
     height: 180px;
     object-fit: contain;
-    background-color: #f8f9fa;
+    background-color: whitesmoke;
+}
+.nav-bar {
+    background-color: #1bb19b;
+    font-family:'Lucida Sans';
+}
+.image-detail {
+    height: 300px;
+    object-fit: cover;
 }
