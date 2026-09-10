@@ -3,17 +3,36 @@
 include "../Classes/database.php";
 include "../Classes/sets.php";
 
-// Pagina
 $page = $_GET['page'] ?? 1;
+$merkid = $_GET['merk'] ?? null;
 
 $perPage = 9;
 $startAt = ($page - 1) * $perPage;
 
-// Sets ophalen
-$sets = Sets::AlleSets($startAt, $perPage);
+if ($merkid != null) {
 
-// Aantal pagina's
-$totalSets = Sets::AantalSets();
+    $sets = Sets::AlleSetsGefilterd(
+        $startAt,
+        $perPage,
+        null,
+        $merkid
+    );
+
+    $totalSets = Sets::AantalSetsGefilterd(
+        null,
+        $merkid
+    );
+
+} else {
+
+    $sets = Sets::AlleSets(
+        $startAt,
+        $perPage
+    );
+
+    $totalSets = Sets::AantalSets();
+}
+
 $totalPages = ceil($totalSets / $perPage);
 
 ?>

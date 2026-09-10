@@ -3,7 +3,6 @@
 include "../Classes/database.php";
 include "../Classes/merk.php";
 
-// Alle merken ophalen
 $merken = Merk::VindtAlleMerken();
 
 ?>
