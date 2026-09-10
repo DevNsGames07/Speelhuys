@@ -3,21 +3,29 @@ include "./Classes/database.php";
 include "./Classes/sets.php";
 include "./classes/theme.php";
 include "./classes/merk.php";
-
+ 
+$themeId = $_GET['thema'] ?? null;
+$brandId = $_GET['merk'] ?? null;
+$themas = Theme::vindtalleThemes();   
+$merken = Merk::vindtAlleMerken();
+ 
 $sort = $_GET['sort'] ?? null;
+$themeId = $_GET['thema'] ?? null;
+$brandId = $_GET['merk'] ?? null;
 $page = (int)($_GET['page'] ?? 1);
-
+ 
 $perPage = 9;
 $startAt = $perPage * ($page - 1);
-
-$totalSets = Sets::AantalSets();
+ 
+$totalSets = Sets::AantalSetsGefilterd($themeId, $brandId);
 $totalPages = ceil($totalSets / $perPage);
 
 if (!empty($sort)) {
-    $sets = Sets::AlleSetsGesoorteerd($sort, $startAt, $perPage);
+    $sets = Sets::AlleSetsGesoorteerdEnGefilterd($sort, $startAt, $perPage, $themeId, $brandId);
 } else {
-    $sets = Sets::AlleSets($startAt, $perPage);
+    $sets = Sets::AlleSetsGefilterd($startAt, $perPage, $themeId, $brandId);
 }
+
 
 
 ?>
@@ -74,41 +82,36 @@ if (!empty($sort)) {
     </nav>
     <div class="container mt-4">
         <div class="row mb-4">
-            <div class="col-md-5 ms-auto">
-                <form method="GET" action="">
-                    <div class="input-group">
-                        <label class="input-group-text bg-white fw-bold" for="sortSelect">Sorteren op:</label>
-                        <select class="form-select shadow-sm" id="sortSelect" name="sort" onchange="this.form.submit()">
-                            <option value="" selected disabled>Maak een keuze...</option>
-                            <option value="prijs_oplopend" <?= $sort == 'prijs_oplopend' ? 'selected' : ''; ?>>Prijs oplopend</option>
-                            <option value="prijs_aflopend" <?= $sort == 'prijs_aflopend' ? 'selected' : ''; ?>>Prijs aflopend</option>
-                            <option value="blokjes_oplopend" <?= $sort == 'blokjes_oplopend' ? 'selected' : ''; ?>>Aantal blokjes oplopend</option>
-                            <option value="blokjes_aflopend" <?= $sort == 'blokjes_aflopend' ? 'selected' : ''; ?>>Aantal blokjes aflopend</option>
-                            <option value="leeftijd_oplopend" <?= $sort == 'leeftijd_oplopend' ? 'selected' : ''; ?>>Leeftijd oplopend</option>
-                            <option value="leeftijd_aflopend" <?= $sort == 'leeftijd_aflopend' ? 'selected' : ''; ?>>Leeftijd aflopend</option>
-                        </select>
-                    </div>
-                </form>
+            <div class="col-md-7 ms-auto">
                 <form method="GET" action="" class="d-flex gap-2">
-                <select class="form-select shadow-sm" name="thema" onchange="this.form.submit()">
-                    <option value="">Alle thema's</option>
-                    <?php foreach ($themas as $t) { ?>
-                        <option value="<?= $t->id; ?>" <?= ($themeId == $t->id) ? 'selected' : ''; ?>>
-                            <?= htmlspecialchars($t->naam); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-                <select class="form-select shadow-sm" name="merk" onchange="this.form.submit()">
-                    <option value="">Alle merken</option>
-                    <?php foreach ($merken as $m) { ?>
-                        <option value="<?= $m->id; ?>" <?= ($brandId == $m->id) ? 'selected' : ''; ?>>
-                            <?= htmlspecialchars($m->naam); ?>
-                        </option>
-                    <?php } ?>
-                </select>
+                    <select class="form-select shadow-sm" name="sort" onchange="this.form.submit()">
+                        <option value="" <?= empty($sort) ? 'selected' : ''; ?> disabled>Sorteren op...</option>
+                        <option value="prijs_oplopend" <?= $sort == 'prijs_oplopend'    ? 'selected' : ''; ?>>Prijs oplopend</option>
+                        <option value="prijs_aflopend" <?= $sort == 'prijs_aflopend'    ? 'selected' : ''; ?>>Prijs aflopend</option>
+                        <option value="blokjes_oplopend" <?= $sort == 'blokjes_oplopend'  ? 'selected' : ''; ?>>Aantal blokjes oplopend</option>
+                        <option value="blokjes_aflopend" <?= $sort == 'blokjes_aflopend'  ? 'selected' : ''; ?>>Aantal blokjes aflopend</option>
+                        <option value="leeftijd_oplopend" <?= $sort == 'leeftijd_oplopend' ? 'selected' : ''; ?>>Leeftijd oplopend</option>
+                        <option value="leeftijd_aflopend" <?= $sort == 'leeftijd_aflopend' ? 'selected' : ''; ?>>Leeftijd aflopend</option>
+                    </select>
 
-                <input type="hidden" name="sort" value="<?= htmlspecialchars($sort ?? ''); ?>">
-            </form>
+                    <select class="form-select shadow-sm" name="thema" onchange="this.form.submit()">
+                        <option value="">Alle thema's</option>
+                        <?php foreach ($themas as $t) { ?>
+                            <option value="<?= $t->id; ?>" <?= ($themeId == $t->id) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($t->naam); ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+
+                    <select class="form-select shadow-sm" name="merk" onchange="this.form.submit()">
+                        <option value="">Alle merken</option>
+                        <?php foreach ($merken as $m) { ?>
+                            <option value="<?= $m->id; ?>" <?= ($brandId == $m->id) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($m->naam); ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="row">
@@ -127,9 +130,11 @@ if (!empty($sort)) {
             <?php } ?>
         </div>
         <div class="pagination">
-
             <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                <a class="<?= ($i === $page) ? 'active' : ''; ?>" href="?page=<?= $i; ?>&sort=<?= $sort; ?>"><?= $i; ?></a>
+                <a class="<?= ($i === $page) ? 'active' : ''; ?>"
+                    href="?page=<?= $i; ?>&sort=<?= urlencode($sort ?? ''); ?>&thema=<?= urlencode($themeId ?? ''); ?>&merk=<?= urlencode($brandId ?? ''); ?>">
+                    <?= $i; ?>
+                </a>
             <?php } ?>
         </div>
     </div>
