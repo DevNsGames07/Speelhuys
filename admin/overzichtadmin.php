@@ -210,25 +210,7 @@ $totalPages = ceil($totalSets / $perPage);
                         <h3>
                             <?= $set->naam ?>
                         </h3>
-
-                        <p>
-                            Merk ID: <?= $set->merkid ?>
-                        </p>
-
-                        <p>
-                            <?= $set->stukjes ?> steentjes
-                        </p>
-
-                        <p>
-                            Leeftijd: <?= $set->age ?> jaar
-                        </p>
-
-                        <strong>
-                            € <?= number_format($set->price, 2, ',', '.') ?>
-                        </strong>
-
-                        <br><br>
-
+                        
                         <a
                             href="detail.php?id=<?= $set->id ?>"
                             class="detail-button"
