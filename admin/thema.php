@@ -11,12 +11,15 @@ $themas = Theme::VindtalleThemes();
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Thema's - Speelhuys</title>
 
     <link rel="stylesheet" href="../overzicht.css">
+
 </head>
 
 <body>
@@ -48,16 +51,8 @@ $themas = Theme::VindtalleThemes();
             Merk
         </a>
 
-        <a href="leeftijd.php">
-            Leeftijd
-        </a>
-
-        <a href="#">
-            Prijs
-        </a>
-
-        <a href="#">
-            Steentjes
+        <a href="sets.php">
+            Sets
         </a>
 
     </aside>

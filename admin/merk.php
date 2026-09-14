@@ -54,16 +54,8 @@ $merken = Merk::VindtAlleMerken();
             Merk
         </a>
 
-        <a href="leeftijd.php">
-            Leeftijd
-        </a>
-
-        <a href="#">
-            Prijs
-        </a>
-
-        <a href="#">
-            Steentjes
+        <a href="sets.php">
+            Sets
         </a>
 
     </aside>

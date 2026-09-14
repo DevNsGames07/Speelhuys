@@ -2,36 +2,48 @@
 
 include "../Classes/database.php";
 include "../Classes/sets.php";
+include "../Classes/merk.php";
+include "../Classes/theme.php";
 
 $page = $_GET['page'] ?? 1;
+
 $merkid = $_GET['merk'] ?? null;
+$themaid = $_GET['thema'] ?? null;
+$sort = $_GET['sort'] ?? '';
+
+$merken = Merk::VindtAlleMerken();
+$themas = Theme::VindtalleThemes();
 
 $perPage = 9;
 $startAt = ($page - 1) * $perPage;
 
-if ($merkid != null) {
 
-    $sets = Sets::AlleSetsGefilterd(
+if ($merkid != null || $themaid != null) {
+
+    $sets = Sets::AlleSetsGesoorteerdEnGefilterd(
+        $sort,
         $startAt,
         $perPage,
-        null,
+        $themaid,
         $merkid
     );
 
     $totalSets = Sets::AantalSetsGefilterd(
-        null,
+        $themaid,
         $merkid
     );
 
 } else {
 
-    $sets = Sets::AlleSets(
+    $sets = Sets::AlleSetsGesoorteerd(
+        $sort,
         $startAt,
         $perPage
     );
 
     $totalSets = Sets::AantalSets();
 }
+
 
 $totalPages = ceil($totalSets / $perPage);
 
@@ -64,11 +76,12 @@ $totalPages = ceil($totalSets / $perPage);
         <h3>Menu</h3>
 
         <a href="overzichtadmin.php">Overzicht</a>
+
         <a href="thema.php">Thema</a>
+        
         <a href="merk.php">Merk</a>
-        <a href="leeftijd.php">Leeftijd</a>
-        <a href="#">Prijs</a>
-        <a href="#">Steentjes</a>
+        
+        <a href="sets.php">Sets</a>
 
     </aside>
 
@@ -81,8 +94,89 @@ $totalPages = ceil($totalSets / $perPage);
                 <h1>Overzicht</h1>
                 <p>Bekijk alle beschikbare pakketten.</p>
             </div>
+    
+    <form method="GET">
+                    
+        <label>Merk:</label>
+                
+            <select name="merk">
 
-        </div>
+    <option value="">Alle merken</option>
+
+    <?php foreach ($merken as $merk) { ?>
+
+        <option
+            value="<?= $merk->id ?>"
+            <?= $merkid == $merk->id ? 'selected' : '' ?>
+        >
+            <?= $merk->naam ?>
+        </option>
+
+    <?php } ?>
+
+</select>
+
+
+            <label>Thema:</label>
+
+              <select name="thema">
+
+    <option value="">Alle thema's</option>
+
+    <?php foreach ($themas as $thema) { ?>
+
+        <option
+            value="<?= $thema->id ?>"
+            <?= $themaid == $thema->id ? 'selected' : '' ?>
+        >
+            <?= $thema->naam ?>
+        </option>
+
+    <?php } ?>
+
+</select>
+
+
+            <label>Sorteren:</label>
+
+             <select name="sort">
+
+              <option value="">Standaard</option>
+
+              <option value="prijs_oplopend">
+                Prijs laag naar hoog
+              </option>
+
+              <option value="prijs_aflopend">
+                Prijs hoog naar laag
+              </option>
+
+              <option value="blokjes_oplopend">
+                Steentjes weinig naar veel
+              </option>
+
+              <option value="blokjes_aflopend">
+                Steentjes veel naar weinig
+              </option>
+
+              <option value="leeftijd_oplopend">
+                Leeftijd laag naar hoog
+              </option>
+
+              <option value="leeftijd_aflopend">
+                Leeftijd hoog naar laag
+              </option>
+
+    </select>
+
+
+    <button type="submit">
+        Filter
+    </button>
+
+  </form>
+            
+</div>
 
 
         <div class="product-grid">
