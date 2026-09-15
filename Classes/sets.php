@@ -280,4 +280,15 @@ class Sets
         $conn->close();
         return (int)$count;
     }
+    public static function Toevoegen($naam, $beschrijving, $merkid, $themeId, $image, $price, $age, $stukjes, $vooraad)
+    {
+        $conn = Database::start();
+        $sql = "INSERT INTO sets
+        (set_name, set_description, set_brand_id, set_theme_id, set_image, set_price, set_age, set_pieces, set_stock)   
+        VALUES ('$naam', '$beschrijving', '$merkid', '$themeId', '$image', '$price', '$age', '$stukjes', '$vooraad')";
+        
+        $conn->query($sql);
+        $conn->close();
+    }
+
 }
