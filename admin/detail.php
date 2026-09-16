@@ -140,6 +140,13 @@ $set = Sets::find($id);
                         Aanpassen
                     </a>
 
+                    <a
+                        href="verwijderen.php?id=<?= $set->id ?>"
+                        class="detail-button"
+                    >
+                        Verwijderen
+                    </a>
+
                 </div>
 
             </div>
