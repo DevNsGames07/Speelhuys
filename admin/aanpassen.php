@@ -1,70 +1,53 @@
 <?php
 
 include "../Classes/database.php";
-include "../Classes/gebruiker.php";
 include "../Classes/sets.php";
 
 $sets = Sets::find($_GET["id"]);
-$gebruiker = Gebruiker::GebruikerByID($_COOKIE["gebruiker-id"]);
 
-if (isset($_COOKIE["gebruiker-id"]) == null) {
-    header("location: overzichtadmin.php?message=Je bent niet ingelogd!");
+if ($sets == null) {
+    header("Location: overzichtadmin.php?message=Set bestaat niet.");
     exit;
 }
 
-if ($sets != null) {
+if (isset($_POST["aanpassen"])) {
 
-    if ($gebruiker->role == "admin") {
+    $naam = $_POST["naam"];
+    $beschrijving = $_POST["beschrijving"];
+    $merkid = $_POST["merkid"];
+    $themeid = $_POST["themeid"];
+    $image = $_POST["image"];
+    $price = $_POST["price"];
+    $age = $_POST["age"];
+    $stukjes = $_POST["stukjes"];
+    $voorraad = $_POST["voorraad"];
 
-        if (isset($_POST["aanpassen"])) {
+    $conn = Database::start();
 
-            $naam = $_POST["naam"];
-            $beschrijving = $_POST["beschrijving"];
-            $merkid = $_POST["merkid"];
-            $themeid = $_POST["themeid"];
-            $image = $_POST["image"];
-            $price = $_POST["price"];
-            $age = $_POST["age"];
-            $stukjes = $_POST["stukjes"];
-            $voorraad = $_POST["voorraad"];
+    $sql = "UPDATE sets SET
+        set_name = '$naam',
+        set_description = '$beschrijving',
+        set_brand_id = '$merkid',
+        set_theme_id = '$themeid',
+        set_image = '$image',
+        set_price = '$price',
+        set_age = '$age',
+        set_pieces = '$stukjes',
+        set_stock = '$voorraad'
+        WHERE set_id = '".$_GET["id"]."'";
 
-            $conn = Database::start();
+    $conn->query($sql);
 
-            $sql = "UPDATE sets SET
-                set_name = '$naam',
-                set_description = '$beschrijving',
-                set_brand_id = '$merkid',
-                set_theme_id = '$themeid',
-                set_image = '$image',
-                set_price = '$price',
-                set_age = '$age',
-                set_pieces = '$stukjes',
-                set_stock = '$voorraad'
-                WHERE set_id = '".$_GET["id"]."'";
+    $conn->close();
 
-            $conn->query($sql);
-            $conn->close();
-
-            header("Location: detail.php?id=".$_GET["id"]);
-            exit;
-        }
-
-    } else {
-
-        header("Location: overzichtadmin.php?message=Je bent geen admin.");
-        exit;
-    }
-
-} else {
-
-    header("Location: overzichtadmin.php?message=Set bestaat niet.");
+    header("Location: detail.php?id=".$_GET["id"]);
     exit;
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -115,7 +98,7 @@ if ($sets != null) {
     <br><br>
 
     <button type="submit" name="aanpassen">
-        Aanpassen
+        Opslaan
     </button>
 
     <a href="detail.php?id=<?= $sets->id ?>">
