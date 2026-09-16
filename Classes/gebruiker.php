@@ -26,7 +26,7 @@ class Gebruiker
             $gebruiker = new Gebruiker;
             $gebruiker->id = $row["user_id"];
             $gebruiker->firstname = $row["user_firstname"];
-            $gebruiker->lastname = $row["user_lasname"];
+            $gebruiker->lastname = $row["user_lastname"];
             $gebruiker->email = $row["user_email"];
             $gebruiker->username = $row["user_username"];
             $gebruiker->password = $row["user_password"];
@@ -52,7 +52,7 @@ class Gebruiker
             $gebruiker = new Gebruiker;
             $gebruiker->id = $row["user_id"];
             $gebruiker->firstname = $row["user_firstname"];
-            $gebruiker->lastname = $row["user_lasname"];
+            $gebruiker->lastname = $row["user_lastname"];
             $gebruiker->email = $row["user_email"];
             $gebruiker->username = $row["user_username"];
             $gebruiker->password = $row["user_password"];

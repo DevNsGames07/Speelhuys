@@ -1,53 +1,63 @@
 <?php
 
 include "../Classes/database.php";
+include "../Classes/gebruiker.php";
 include "../Classes/sets.php";
-include "../Classes/merk.php";
-include "../Classes/theme.php";
 
-$id = $_GET["id"];
+$sets = Sets::find($_GET["id"]);
+$gebruiker = Gebruiker::GebruikerByID($_COOKIE["gebruiker-id"]);
 
-$set = Sets::find($id);
-
-$merken = Merk::VindtAlleMerken();
-$themas = Theme::VindtalleThemes();
-
-if ($set == null) {
-    header("Location: sets.php?message=Set bestaat niet");
+if (isset($_COOKIE["gebruiker-id"]) == null) {
+    header("location: overzichtadmin.php?message=Je bent niet ingelogd!");
     exit;
 }
 
-if (isset($_POST["aanpassen"])) {
+if ($sets != null) {
 
-    $naam = $_POST["naam"];
-    $beschrijving = $_POST["beschrijving"];
-    $merkid = $_POST["merkid"];
-    $themeid = $_POST["themeid"];
-    $image = $_POST["image"];
-    $price = $_POST["price"];
-    $age = $_POST["age"];
-    $stukjes = $_POST["stukjes"];
-    $voorraad = $_POST["voorraad"];
+    if ($gebruiker->role == "admin") {
 
-    $conn = Database::start();
+        if (isset($_POST["aanpassen"])) {
 
-    $sql = "UPDATE sets SET
-        set_name = '$naam',
-        set_description = '$beschrijving',
-        set_brand_id = '$merkid',
-        set_theme_id = '$themeid',
-        set_image = '$image',
-        set_price = '$price',
-        set_age = '$age',
-        set_pieces = '$stukjes',
-        set_stock = '$voorraad'
-        WHERE set_id = '$id'";
+            $naam = $_POST["naam"];
+            $beschrijving = $_POST["beschrijving"];
+            $merkid = $_POST["merkid"];
+            $themeid = $_POST["themeid"];
+            $image = $_POST["image"];
+            $price = $_POST["price"];
+            $age = $_POST["age"];
+            $stukjes = $_POST["stukjes"];
+            $voorraad = $_POST["voorraad"];
 
-    $conn->query($sql);
+            $conn = Database::start();
 
-    $conn->close();
+            $sql = "UPDATE sets SET
+                set_name = '$naam',
+                set_description = '$beschrijving',
+                set_brand_id = '$merkid',
+                set_theme_id = '$themeid',
+                set_image = '$image',
+                set_price = '$price',
+                set_age = '$age',
+                set_pieces = '$stukjes',
+                set_stock = '$voorraad'
+                WHERE set_id = '".$_GET["id"]."'";
 
-    header("Location: detail.php?id=$id");
+            $conn->query($sql);
+            $conn->close();
+
+            header("Location: detail.php?id=".$_GET["id"]);
+            exit;
+        }
+
+    } else {
+
+        header("Location: overzichtadmin.php?message=Je bent geen admin.");
+        exit;
+    }
+
+} else {
+
+    header("Location: overzichtadmin.php?message=Set bestaat niet.");
     exit;
 }
 
@@ -69,103 +79,46 @@ if (isset($_POST["aanpassen"])) {
 <form method="post">
 
     <label>Naam:</label><br>
-    <input 
-        type="text" 
-        name="naam" 
-        value="<?= $set->naam ?>" 
-        required
-    >
+    <input type="text" name="naam" value="<?= $sets->naam ?>">
     <br><br>
 
     <label>Beschrijving:</label><br>
-    <textarea name="beschrijving" required><?= $set->beschrijving ?></textarea>
+    <textarea name="beschrijving"><?= $sets->beschrijving ?></textarea>
     <br><br>
 
     <label>Merk:</label><br>
-    <select name="merkid" required>
-
-        <?php foreach ($merken as $merk) { ?>
-
-            <option 
-                value="<?= $merk->id ?>"
-                <?= $set->merkid == $merk->id ? "selected" : "" ?>
-            >
-                <?= $merk->naam ?>
-            </option>
-
-        <?php } ?>
-
-    </select>
+    <input type="number" name="merkid" value="<?= $sets->merkid ?>">
     <br><br>
 
     <label>Thema:</label><br>
-    <select name="themeid" required>
-
-        <?php foreach ($themas as $thema) { ?>
-
-            <option 
-                value="<?= $thema->id ?>"
-                <?= $set->themeid == $thema->id ? "selected" : "" ?>
-            >
-                <?= $thema->naam ?>
-            </option>
-
-        <?php } ?>
-
-    </select>
+    <input type="number" name="themeid" value="<?= $sets->themeid ?>">
     <br><br>
 
     <label>Afbeelding:</label><br>
-    <input 
-        type="text" 
-        name="image" 
-        value="<?= $set->image ?>" 
-        required
-    >
+    <input type="text" name="image" value="<?= $sets->image ?>">
     <br><br>
 
     <label>Prijs:</label><br>
-    <input 
-        type="number" 
-        step="0.01" 
-        name="price" 
-        value="<?= $set->price ?>" 
-        required
-    >
+    <input type="number" step="0.01" name="price" value="<?= $sets->price ?>">
     <br><br>
 
     <label>Leeftijd:</label><br>
-    <input 
-        type="number" 
-        name="age" 
-        value="<?= $set->age ?>" 
-        required
-    >
+    <input type="number" name="age" value="<?= $sets->age ?>">
     <br><br>
 
-    <label>Aantal steentjes:</label><br>
-    <input 
-        type="number" 
-        name="stukjes" 
-        value="<?= $set->stukjes ?>" 
-        required
-    >
+    <label>Steentjes:</label><br>
+    <input type="number" name="stukjes" value="<?= $sets->stukjes ?>">
     <br><br>
 
     <label>Voorraad:</label><br>
-    <input 
-        type="number" 
-        name="voorraad" 
-        value="<?= $set->vooraad ?>" 
-        required
-    >
+    <input type="number" name="voorraad" value="<?= $sets->vooraad ?>">
     <br><br>
 
     <button type="submit" name="aanpassen">
-        Opslaan
+        Aanpassen
     </button>
 
-    <a href="detail.php?id=<?= $set->id ?>">
+    <a href="detail.php?id=<?= $sets->id ?>">
         Annuleren
     </a>
 
