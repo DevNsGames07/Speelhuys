@@ -50,6 +50,8 @@ if (!empty($_POST["username"])) {
         </div>
     </nav>
 
+    <img src="../images/bg/backG.png" class="bg-log">
+
     <div class="card position-absolute top-50 start-50 translate-middle" style="width: 26rem;">
         <div class="card-body text-center">
             <h3>Inloggen:</h3>
@@ -63,7 +65,6 @@ if (!empty($_POST["username"])) {
                 <input type="submit" value="Login" class="login-button">
             </form>
         </div>
-        <a href="javascript:history.back()">Back to previous page</a>
     </div>
 </body>
 
