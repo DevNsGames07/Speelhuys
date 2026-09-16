@@ -20,33 +20,14 @@ $startAt = ($page - 1) * $perPage;
 
 if ($merkid != null || $themaid != null) {
 
-    $sets = Sets::AlleSetsGesoorteerdEnGefilterd(
-        $sort,
-        $startAt,
-        $perPage,
-        $themaid,
-        $merkid
-    );
-
-    $totalSets = Sets::AantalSetsGefilterd(
-        $themaid,
-        $merkid
-    );
-
+    $sets = Sets::AlleSetsGesoorteerdEnGefilterd($sort, $startAt, $perPage, $themaid, $merkid);
+    $totalSets = Sets::AantalSetsGefilterd($themaid, $merkid);
 } else {
-
-    $sets = Sets::AlleSetsGesoorteerd(
-        $sort,
-        $startAt,
-        $perPage
-    );
-
+    $sets = Sets::AlleSetsGesoorteerd($sort, $startAt, $perPage);
     $totalSets = Sets::AantalSets();
 }
 
-
 $totalPages = ceil($totalSets / $perPage);
-
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +38,7 @@ $totalPages = ceil($totalSets / $perPage);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Speelhuys - Admin</title>
     <link rel="stylesheet" href="../overzicht.css">
+<<<<<<< Updated upstream
     <link rel="stylesheet" href="../style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
@@ -67,210 +49,224 @@ $totalPages = ceil($totalSets / $perPage);
         <span class="navbar-brand">Speelhuys </br> codeblokken</span>
     </div>
 </nav> 
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-<div class="page-layout">
+</head>
 
-    <aside class="sidebar">
+<body>
+    <header class="site-header">
 
-        <h3>Menu</h3>
+        <div class="site-logo">
+            <h2>Speelhuys</h2>
+        </div>
+    </header>
+>>>>>>> Stashed changes
 
-        <a href="overzichtadmin.php">Overzicht</a>
+    <div class="page-layout">
 
-        <a href="thema.php">Thema</a>
-        
-        <a href="merk.php">Merk</a>
-        
-        <a href="sets.php">Sets</a>
+        <aside class="sidebar">
+            <h3>Menu</h3>
+            <a href="overzichtadmin.php">Overzicht</a>
+            <a href="thema.php">Thema</a>
+            <a href="merk.php">Merk</a>
+            <a href="sets.php">Sets</a>
+        </aside>
+        <main class="content">
 
-    </aside>
+            <div class="container-header">
 
+                <div>
+                    <h1>Overzicht</h1>
+                    <p>Bekijk alle beschikbare pakketten.</p>
+                </div>
 
-    <main class="content">
+                <?php
 
-        <div class="container-header">
+                if (isset($_GET["message"])) { // Als er in de url een bericht is meegegeven
+                ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><?= $_GET["message"] ?></strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php
+                }
+                ?>
 
-            <div>
-                <h1>Overzicht</h1>
-                <p>Bekijk alle beschikbare pakketten.</p>
-            </div>
-    
-    <form method="GET">
-                    
-        <label>Merk:</label>
-                
-            <select name="merk">
+                <form method="GET">
 
-    <option value="">Alle merken</option>
+                    <label>Merk:</label>
 
-    <?php foreach ($merken as $merk) { ?>
+                    <select name="merk">
 
-        <option
-            value="<?= $merk->id ?>"
-            <?= $merkid == $merk->id ? 'selected' : '' ?>
-        >
-            <?= $merk->naam ?>
-        </option>
+                        <option value="">Alle merken</option>
 
-    <?php } ?>
+                        <?php foreach ($merken as $merk) { ?>
 
-</select>
-
-
-            <label>Thema:</label>
-
-              <select name="thema">
-
-    <option value="">Alle thema's</option>
-
-    <?php foreach ($themas as $thema) { ?>
-
-        <option
-            value="<?= $thema->id ?>"
-            <?= $themaid == $thema->id ? 'selected' : '' ?>
-        >
-            <?= $thema->naam ?>
-        </option>
-
-    <?php } ?>
-
-</select>
-
-
-            <label>Sorteren:</label>
-
-             <select name="sort">
-
-              <option value="">Standaard</option>
-
-              <option value="prijs_oplopend">
-                Prijs laag naar hoog
-              </option>
-
-              <option value="prijs_aflopend">
-                Prijs hoog naar laag
-              </option>
-
-              <option value="blokjes_oplopend">
-                Steentjes weinig naar veel
-              </option>
-
-              <option value="blokjes_aflopend">
-                Steentjes veel naar weinig
-              </option>
-
-              <option value="leeftijd_oplopend">
-                Leeftijd laag naar hoog
-              </option>
-
-              <option value="leeftijd_aflopend">
-                Leeftijd hoog naar laag
-              </option>
-
-    </select>
-
-
-    <button type="submit">
-        Filter
-    </button>
-
-  </form>
-            
-</div>
-
-
-        <div class="product-grid">
-
-            <?php foreach ($sets as $set) { ?>
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <?php if (!empty($set->image)) { ?>
-
-                            <img
-                                src="../images/sets/<?= $set->image ?>"
-                                alt="<?= $set->naam ?>"
-                            >
-
-                        <?php } else { ?>
-
-                            <div class="no-image">
-                                Geen afbeelding
-                            </div>
+                            <option
+                                value="<?= $merk->id ?>"
+                                <?= $merkid == $merk->id ? 'selected' : '' ?>>
+                                <?= $merk->naam ?>
+                            </option>
 
                         <?php } ?>
 
+                    </select>
+
+
+                    <label>Thema:</label>
+
+                    <select name="thema">
+
+                        <option value="">Alle thema's</option>
+
+                        <?php foreach ($themas as $thema) { ?>
+
+                            <option
+                                value="<?= $thema->id ?>"
+                                <?= $themaid == $thema->id ? 'selected' : '' ?>>
+                                <?= $thema->naam ?>
+                            </option>
+
+                        <?php } ?>
+
+                    </select>
+
+
+                    <label>Sorteren:</label>
+
+                    <select name="sort">
+
+                        <option value="">Standaard</option>
+
+                        <option value="prijs_oplopend">
+                            Prijs laag naar hoog
+                        </option>
+
+                        <option value="prijs_aflopend">
+                            Prijs hoog naar laag
+                        </option>
+
+                        <option value="blokjes_oplopend">
+                            Steentjes weinig naar veel
+                        </option>
+
+                        <option value="blokjes_aflopend">
+                            Steentjes veel naar weinig
+                        </option>
+
+                        <option value="leeftijd_oplopend">
+                            Leeftijd laag naar hoog
+                        </option>
+
+                        <option value="leeftijd_aflopend">
+                            Leeftijd hoog naar laag
+                        </option>
+
+                    </select>
+
+
+                    <button type="submit">
+                        Filter
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="product-grid">
+
+                <?php foreach ($sets as $set) { ?>
+
+                    <div class="product-card">
+
+                        <div class="product-image">
+
+                            <?php if (!empty($set->image)) { ?>
+
+                                <img
+                                    src="../images/sets/<?= $set->image ?>"
+                                    alt="<?= $set->naam ?>">
+
+                            <?php } else { ?>
+
+                                <div class="no-image">
+                                    Geen afbeelding
+                                </div>
+
+                            <?php } ?>
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <h3>
+                                <?= $set->naam ?>
+                            </h3>
+
+                            <a
+                                href="detail.php?id=<?= $set->id ?>"
+                                class="detail-button">
+                                Bekijk product
+                            </a>
+
+                        </div>
+
                     </div>
 
+                <?php } ?>
 
-                    <div class="product-info">
-
-                        <h3>
-                            <?= $set->naam ?>
-                        </h3>
-                        
-                        <a
-                            href="detail.php?id=<?= $set->id ?>"
-                            class="detail-button"
-                        >
-                            Bekijk product
-                        </a>
-
-                    </div>
-
-                </div>
-
-            <?php } ?>
-
-        </div>
+            </div>
 
 
-        <!-- Pagina's -->
+            <!-- Pagina's -->
 
-        <div class="pagination">
+            <div class="pagination">
 
-            <?php if ($page > 1) { ?>
+                <?php if ($page > 1) { ?>
 
-                <a href="?page=<?= $page - 1 ?>">
-                    &lt;
-                </a>
+                    <a href="?page=<?= $page - 1 ?>">
+                        &lt;
+                    </a>
 
-            <?php } ?>
-
-
-            <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-
-                <a
-                    href="?page=<?= $i ?>"
-                    class="<?= $i == $page ? 'current' : '' ?>"
-                >
-                    <?= $i ?>
-                </a>
-
-            <?php } ?>
+                <?php } ?>
 
 
-            <?php if ($page < $totalPages) { ?>
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
 
-                <a href="?page=<?= $page + 1 ?>">
-                    &gt;
-                </a>
+                    <a
+                        href="?page=<?= $i ?>"
+                        class="<?= $i == $page ? 'current' : '' ?>">
+                        <?= $i ?>
+                    </a>
 
-            <?php } ?>
-
-        </div>
-
-    </main>
-
-</div>
+                <?php } ?>
 
 
-<footer class="site-footer">
+                <?php if ($page < $totalPages) { ?>
 
-    <h2>Speelhuys</h2>
+                    <a href="?page=<?= $page + 1 ?>">
+                        &gt;
+                    </a>
 
-</footer>
+                <?php } ?>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <footer class="site-footer">
+
+        <h2>Speelhuys</h2>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
 

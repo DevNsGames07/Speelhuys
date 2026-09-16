@@ -88,7 +88,7 @@ class Sets
         $set = null;
         $conn = Database::start();
         $id = mysqli_escape_string($conn, $id);
-        $sql = "SELECT * FROM sets WHERE set_id ='" . $id . "' ";
+        $sql = "SELECT * FROM sets WHERE set_id = '" . $id . "' ";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -111,14 +111,15 @@ class Sets
     }
 
     public static function AantalSets()
-{
-    $conn = Database::start();
-    $result = $conn->query("SELECT COUNT(*) FROM sets");
+    {
+        $conn = Database::start();
+        $result = $conn->query("SELECT COUNT(*) FROM sets");
+        
+        $count = $result->fetch_row()[0]; 
+        
+        return (int)$count;
+    }
     
-    $count = $result->fetch_row()[0]; 
-    
-    return (int)$count;
-}
     public static function AlleSetsGefilterd($startAt, $perPage, $themeId = null, $brandId = null)
     {
         $conn = Database::start();
@@ -287,6 +288,21 @@ class Sets
         (set_name, set_description, set_brand_id, set_theme_id, set_image, set_price, set_age, set_pieces, set_stock)   
         VALUES ('$naam', '$beschrijving', '$merkid', '$themeId', '$image', '$price', '$age', '$stukjes', '$vooraad')";
         
+        $conn->query($sql);
+        $conn->close();
+    }
+
+
+    public function Delete()
+    {
+        $conn = Database::start();
+
+        $id = mysqli_escape_string($conn, $this->id);
+        $sql = "
+            DELETE FROM 
+                sets 
+            WHERE set_id = " . $id . "
+        ";
         $conn->query($sql);
         $conn->close();
     }

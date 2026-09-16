@@ -14,6 +14,7 @@ if (!empty($_POST["username"])) {
 
         if ($gebruiker) {
             header("Location: overzichtadmin.php");
+            setcookie("gebruiker-id", $gebruiker->id, strtotime("+1 month"), "/"); // Wordt de waardes in de database gezet
             exit;
         } else {
             $errorbericht = "Geen geldige gebruiker";

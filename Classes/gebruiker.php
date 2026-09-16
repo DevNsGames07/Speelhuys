@@ -35,6 +35,32 @@ class Gebruiker
         $conn->close();
         return $gebruiker;
     }
+
+    public static function GebruikerByID($id)
+    {
+        $gebruiker = null;
+
+        $conn = Database::start();
+        $id = mysqli_escape_string($conn, $id);
+
+        $query = "SELECT * FROM users WHERE user_id = '" . $id . "'";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            
+            $gebruiker = new Gebruiker;
+            $gebruiker->id = $row["user_id"];
+            $gebruiker->firstname = $row["user_firstname"];
+            $gebruiker->lastname = $row["user_lasname"];
+            $gebruiker->email = $row["user_email"];
+            $gebruiker->username = $row["user_username"];
+            $gebruiker->password = $row["user_password"];
+            $gebruiker->role = $row["user_role"];
+        }
+        $conn->close();
+        return $gebruiker;
+    }
 }
 
 ?>

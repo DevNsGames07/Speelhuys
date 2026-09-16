@@ -133,6 +133,7 @@ $set = Sets::find($id);
                         Terug naar sets
                     </a>
 
+<<<<<<< Updated upstream
                     <a
                         href="aanpassen.php?id=<?= $set->id ?>"
                         class="detail-button"
@@ -147,8 +148,11 @@ $set = Sets::find($id);
                         Verwijderen
                     </a>
 
+=======
+                    <a href="aanpassen.php?id=<?= $set->id ?>" class="detail-button">Aanpassen</a>
+                    <a href="delete.php?id=<?= $set->id ?>" class="detail-button">Verwijderen</a>
+>>>>>>> Stashed changes
                 </div>
-
             </div>
 
         <?php } else { ?>
