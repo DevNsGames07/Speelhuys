@@ -82,31 +82,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <form method="POST">
 
             <label>Naam</label>
-            <input type="text" name="naam" required>
+            <input type="text" name="naam" required> <br>
 
             <label>Beschrijving</label>
-            <textarea name="beschrijving" required></textarea>
+            <textarea name="beschrijving" required></textarea> <br>
 
             <label>Merk ID</label>
-            <input type="number" name="merkid" required>
+            <input type="number" name="merkid" required> <br>
 
             <label>Thema ID</label>
-            <input type="number" name="themeId" required>
+            <input type="number" name="themeId" required> <br>
 
             <label>Afbeelding</label>
-            <input type="text" name="image">
+            <input type="file" name="image"> <br>
 
             <label>Prijs</label>
-            <input type="number" step="0.01" name="price" required>
+            <input type="number" step="0.01" name="price" required> <br>
 
             <label>Leeftijd</label>
-            <input type="number" name="age" required>
+            <input type="number" name="age" required> <br>
 
             <label>Aantal stukjes</label>
-            <input type="number" name="stukjes" required>
+            <input type="number" name="stukjes" required> <br>
 
             <label>Voorraad</label>
-            <input type="number" name="vooraad" required>
+            <input type="number" name="vooraad" required> <br>
 
             <br><br>
 
