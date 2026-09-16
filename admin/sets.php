@@ -70,6 +70,9 @@ $sets = Sets::AlleSets(0, 100);
                 </p>
 
             </div>
+            <a href="settoevoegen.php" class="add-button">
+        + Set toevoegen
+    </a>
 
         </div>
 
